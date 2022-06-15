@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <HeaderVue title="Task Tracker"/>
-    <TasksVue :tasks="tasks"/>
+    <TasksVue @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
 
@@ -17,6 +17,15 @@
     data(){
       return {
         tasks :[],
+      }
+    },
+    methods:{
+      deleteTask(id){
+        if(confirm('Are you sure?')) this.tasks = this.tasks.filter(task=>task.id!==id)
+      },
+      toggleReminder(id){
+        this.tasks = this.tasks.map(task=>
+          (task.id===id) ? {...task,reminder:!task.reminder} : task)
       }
     },
     created(){
