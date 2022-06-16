@@ -1,7 +1,10 @@
 <template>
     <header>
         <h1>{{title}}</h1>
-    <ButtonVue @toggle-add-task = "$emit('toggle-add-task')" text="Add a task" color="green"/>
+    <ButtonVue 
+        @toggle-add-task = "$emit('toggle-add-task')" 
+        :text="showAddTask ? 'Close' : 'Add Task'" 
+        :color="showAddTask ? 'red':'green'"/>
     </header>
 </template>
 <script>
@@ -10,6 +13,7 @@
         name:'HeaderCont',
         props:{
             title:String,
+            showAddTask:Boolean,
         },
         components:{
             ButtonVue
