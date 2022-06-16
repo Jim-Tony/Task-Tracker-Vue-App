@@ -1,7 +1,7 @@
 <template>
     <header>
         <h1>{{title}}</h1>
-    <ButtonVue text="Add a task" color="green"/>
+    <ButtonVue @toggle-add-task = "$emit('toggle-add-task')" text="Add a task" color="green"/>
     </header>
 </template>
 <script>
@@ -13,7 +13,8 @@
         },
         components:{
             ButtonVue
-        }
+        },
+        emits:['toggle-add-task'],
     }
 </script>
 <style scoped>
