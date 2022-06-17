@@ -17,6 +17,12 @@
       "text": "Food shopping",
       "day": "March 7th at 2:00pm",
       "reminder": false
+    },
+    {
+      "text": "Complete Java",
+      "day": "June 30th at 5.50pm",
+      "reminder": true,
+      "id": "SBfW78M"
     }
   ]
 }
