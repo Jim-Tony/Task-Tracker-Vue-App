@@ -5,6 +5,7 @@
       <AddTask @add-task = "addTask"/>
     </div>
     <TasksVue @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+    <FooterCont/>
   </div>
 </template>
 
@@ -12,12 +13,14 @@
   import HeaderVue from './components/Header.vue'
   import TasksVue from './components/Tasks.vue'
   import AddTask from './components/AddTask.vue'
+  import FooterCont from './components/Footer.vue'
   export default{
     name:'App',
     components:{
       HeaderVue,
       TasksVue,
       AddTask,
+      FooterCont,
     },
     data(){
       return {
@@ -50,9 +53,19 @@
             : alert('Error in deleting');
         }
       },
-      toggleReminder(id){
+      async toggleReminder(id){
+        const targetTask = await this.fetchTask(id);
+        const updTask = {...targetTask,reminder:!targetTask.reminder};
+        const res = await fetch(`api/tasks/${id}`,{
+          method:'PUT',
+          headers:{
+            'Content-type':'application/json',
+          },
+          body: JSON.stringify(updTask),
+        })
+        const data = await res.json();
         this.tasks = this.tasks.map(task=>
-          (task.id===id) ? {...task,reminder:!task.reminder} : task)
+          (task.id===id) ? {...task,reminder:data.reminder} : task)
       },
       async fetchTasks(){
         const res = await fetch("api/tasks");
